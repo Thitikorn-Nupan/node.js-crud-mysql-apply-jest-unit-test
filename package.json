@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "comment" : [
+    "run before use tsx <>.tes => npm install -D typescript @types/node tsx",
+    "we call key-value pair or a name-value pair in JSON data",
+    "inside scripts you run by npm <run:logging> "
+  ],
   "scripts": {
     "run:log": "tsx log/logging.ts",
     "run:config": "tsx configuration/dbconfig.ts",
