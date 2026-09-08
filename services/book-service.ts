@@ -43,7 +43,7 @@ export const create = async (name: string, price: number, productiondate: Date):
 
 export const update = async (name: string, price: number, productiondate: Date, id: number): Promise<number | null> => {
     try {
-        const [affectedRows] = await book().update({name, price, productiondate}, {where: {id},});
+        const [affectedRows] = await book().update({name, price, productiondate}, {where: {id}});
         if (affectedRows === 0) {
             // throw new Error(`book not found with id ${id}`);
             return 0

@@ -1,6 +1,6 @@
 import {afterEach, describe, expect, jest, test} from "@jest/globals";
 import * as bookEntity from "../entities/book";
-import {read, reads, update as updateService} from "../services/book-service";
+import {read, reads, update as updateService, create as createService, deleteById } from "../services/book-service";
 
 // error : TypeError: The "path" argument must be of type string. Received undefined
 // Mock the logger because logging.ts uses process.mainModule?.filename.
@@ -77,7 +77,8 @@ describe("test book-service.ts (use jest.spyOn)", () => {
             create,
         } as any);
 
-        const result = await create(book.name, book.price, book.productiondate);
+        // ***
+        const result = await createService(book.name, book.price, book.productiondate);
 
         expect(create).toHaveBeenCalledTimes(1);
         expect(result).toBe(book);
@@ -87,10 +88,10 @@ describe("test book-service.ts (use jest.spyOn)", () => {
         const book = { name: "Clean Code", price: 1 ,productiondate: new Date()};
         const id = 1;
 
-        const update = jest.fn<(values: { name: string; price: number; productiondate: Date }, options: { where: { id: number } }) => Promise<number | null>>();
+        const update = jest.fn<(values: { name: string; price: number; productiondate: Date }, options: { where: { id: number } }) => Promise<[number] | null>>();
 
         // Configure the fake database response before calling the service.
-        update.mockResolvedValue(1);
+        update.mockResolvedValue([1]);
 
         // Spy on the factory used by the service and return our fake model.
         jest.spyOn(bookEntity, "book").mockReturnValue({
@@ -98,7 +99,8 @@ describe("test book-service.ts (use jest.spyOn)", () => {
             update,
         } as any);
 
-        const result = await update({ name: book.name, price: book.price ,productiondate: book.productiondate}, {where: {id}});
+        // ***
+        const result = await updateService(book.name, book.price ,book.productiondate ,id);
 
         expect(update).toHaveBeenCalledTimes(1);
         expect(result).toBe(1)
@@ -118,7 +120,8 @@ describe("test book-service.ts (use jest.spyOn)", () => {
             destroy,
         } as any);
 
-        const result = await destroy({where: {id}});
+        // ***
+        const result = await deleteById(id);
 
         expect(destroy).toHaveBeenCalledTimes(1);
         expect(result).toBe(1)
