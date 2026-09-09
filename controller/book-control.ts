@@ -1,6 +1,6 @@
 import logging from "../log/logging";
-import bodyParser from "body-parser";
-import express, {Router} from "express"
+import bodyParser  from "body-parser";
+import express, {Request, Response, Router} from "express"
 import {reads, read, create, update, deleteById} from "../services/book-service";
 import {Model} from "sequelize";
 
@@ -11,7 +11,7 @@ router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({extended: true}))
 
 // set api
-router.get('/reads', async (req, res): Promise<any> => {
+router.get('/reads', async (req : Request, res: Response): Promise<any> => {
     try {
         await reads().then((books: Model<any>[]) => {
             return res
@@ -26,7 +26,7 @@ router.get('/reads', async (req, res): Promise<any> => {
     }
 })
 
-router.get('/read', async (req, res): Promise<any> => {
+router.get('/read', async (req : Request, res: Response): Promise<any> => {
     try {
         const id: any = req.query.id;
         if (id) {
@@ -49,7 +49,7 @@ router.get('/read', async (req, res): Promise<any> => {
     }
 })
 
-router.post('/create', async (req, res): Promise<any> => {
+router.post('/create', async (req : Request, res: Response): Promise<any> => {
     try {
         const {name, price} = req.body
         const productiondate = new Date(Date.now())
@@ -73,7 +73,7 @@ router.post('/create', async (req, res): Promise<any> => {
     }
 })
 
-router.put('/update', async (req, res): Promise<any> => {
+router.put('/update', async (req : Request, res: Response): Promise<any> => {
     try {
         const id: any = req.query.id;
         const {name, price} = req.body
@@ -98,7 +98,7 @@ router.put('/update', async (req, res): Promise<any> => {
     }
 })
 
-router.delete('/delete', async (req, res): Promise<any> => {
+router.delete('/delete', async (req : Request, res: Response): Promise<any> => {
     try {
         const id: any = req.query.id;
         if (id) {
