@@ -1,18 +1,14 @@
 import {afterEach, describe, expect, jest, test} from "@jest/globals";
-import * as bookEntity from "../entities/book";
-import {read, reads, update as updateService, create as createService, deleteById } from "../services/book-service";
+import * as bookEntity from "../entities/book.ts";
+import {read, reads, update as updateService, create as createService, deleteById } from "../services/book-service.ts";
 
-// error : TypeError: The "path" argument must be of type string. Received undefined
-// Mock the logger because logging.ts uses process.mainModule?.filename.
-// Jest can leave that value undefined, which causes path.basename() to fail.
-jest.mock("../log/logging", () => ({
+// Keep file logging out of unit tests.
+jest.mock("../log/logging-v2.ts", () => ({
     __esModule: true,
-    default: {
-        winston: {
-            debug: jest.fn(),
-            warn: jest.fn(),
-        },
-    },
+    createLogger: jest.fn(() => ({
+        debug: jest.fn(),
+        warning: jest.fn(),
+    })),
 }));
 
 describe("test book-service.ts (use jest.spyOn)", () => {

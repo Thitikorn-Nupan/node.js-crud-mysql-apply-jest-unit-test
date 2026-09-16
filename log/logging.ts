@@ -1,5 +1,6 @@
 import * as path from 'path';
 import {createLogger, format, transports} from "winston";
+
 const logging = {
     winston : createLogger({
         level : 'silly' ,
@@ -12,4 +13,5 @@ const logging = {
         transports : [ new transports.Console ]
     })
 }
+
 export default logging

@@ -1,6 +1,5 @@
 import {dbConfig} from "../configuration/dbconfig"
 import {INTEGER, STRING, DECIMAL, DATE, ModelCtor, Model} from "sequelize";
-import logging from "../log/logging";
 
 export const book = () : ModelCtor<Model> => {
     return dbConfig().define("books_2", {
@@ -27,4 +26,3 @@ export const book = () : ModelCtor<Model> => {
             timestamps: false
         })
 }
-

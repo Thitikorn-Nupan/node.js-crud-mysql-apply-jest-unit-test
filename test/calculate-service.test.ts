@@ -1,5 +1,5 @@
 import {expect, test, describe ,beforeEach } from '@jest/globals'; // // https://jestjs.io/docs/expect
-import {CalculateService} from "../services/calculate-service";
+import {CalculateService} from "../services/calculate-service.ts";
 
 // Basic way use your service
 describe('test calculate-service.ts', () => {

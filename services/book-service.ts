@@ -1,6 +1,13 @@
-import {book} from "../entities/book";
+import {book} from "../entities/book.ts";
 import {Model} from "sequelize";
-import logging from "../log/logging";
+import * as path from 'path';
+import {createLogger} from "../log/logging-v2.ts";
+import {Logger} from "winston";
+
+//  the ESM-only code: const __filename = fileURLToPath(import.meta.url);
+const filename :string  = path.basename(__filename); // with the CommonJS-compatible version:
+const log : Logger = createLogger(filename);
+
 
 export const reads = async (): Promise<Model[]> => {
     try {
@@ -8,11 +15,11 @@ export const reads = async (): Promise<Model[]> => {
         if (books.length > 0) {
             return books
         } else {
-            logging.winston.debug("there are no books in bookstore")
+            log.debug("there are no books in bookstore")
             return books
         }
     } catch (errors) {
-        logging.winston.warn("somethings was wrong in reads method and cause is " + errors)
+        log.warning("somethings was wrong in reads method and cause is " + errors)
         throw errors
     }
 }
@@ -23,11 +30,11 @@ export const read = async (id: number): Promise<Model | null> => {
         if (bookById) {
             return bookById
         } else {
-            logging.winston.debug("there are no book in bookstore")
+            log.debug("there are no book in bookstore")
             return bookById
         }
     } catch (errors) {
-        logging.winston.warn("somethings was wrong in read method and cause is " + errors)
+        log.warning("somethings was wrong in read method and cause is " + errors)
         throw errors
     }
 }
@@ -36,7 +43,7 @@ export const create = async (name: string, price: number, productiondate: Date):
     try {
         return await book().create({name, price, productiondate})
     } catch (errors) {
-        logging.winston.warn(`create failed: ${errors}`);
+        log.warning(`create failed: ${errors}`);
         throw errors
     }
 }
@@ -50,7 +57,7 @@ export const update = async (name: string, price: number, productiondate: Date, 
         }
         return affectedRows
     } catch (errors) {
-        logging.winston.warn(`update failed: ${errors}`);
+        log.warning(`update failed: ${errors}`);
         throw errors
     }
 }
@@ -64,7 +71,7 @@ export const deleteById = async (id: number) : Promise<number | null> => {
         }
         return deletedRows
     } catch (errors) {
-        logging.winston.warn(`deleteById failed: ${errors}`);
+        log.warning(`deleteById failed: ${errors}`);
         throw errors
     }
 }

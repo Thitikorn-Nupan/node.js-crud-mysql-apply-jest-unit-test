@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "module": "commonjs",
+    "module": "es2020", // fix bug import.meta.url not allowed to use
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext", // fix bug not find winstion Matches module resolution to NodeNext
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "esModuleInterop": true, // <-- Add this line
-    "allowSyntheticDefaultImports": true // <-- Often paired with esModuleInterop
+    "allowSyntheticDefaultImports": true ,// <-- Often paired with esModuleInterop
+    "allowImportingTsExtensions" : true // for fix import {createLogger} from "./log/logging.ts" specify *.ts
   },
+
   "include": [
     "src/**/*",
     "test/*.test.ts",

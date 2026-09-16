@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, jest, test} from '@jest/globals';
-import {CalculateService} from '../services/calculate-service';
+import {CalculateService} from '../services/calculate-service.ts';
 
 // Jest provides the tools used in this file:
 // - describe() groups related tests and makes the test output easier to read.

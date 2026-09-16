@@ -1,5 +1,5 @@
 import {describe, expect, jest, test} from "@jest/globals";
-import router from "../controller/user-control";
+import router from "../controller/user-control.ts";
 
 type RouteMethod = "get" | "post" | "put" | "delete";
 type RequestData = {

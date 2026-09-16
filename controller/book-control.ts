@@ -1,8 +1,15 @@
-import logging from "../log/logging";
 import bodyParser  from "body-parser";
 import express, {Request, Response, Router} from "express"
-import {reads, read, create, update, deleteById} from "../services/book-service";
+import {reads, read, create, update, deleteById} from "../services/book-service.ts";
 import {Model} from "sequelize";
+import path from "path";
+import {createLogger} from "../log/logging-v2.ts";
+import {Logger} from "winston";
+
+
+//  the ESM-only code: const __filename = fileURLToPath(import.meta.url);
+const filename :string  = path.basename(__filename); // with the CommonJS-compatible version:
+const log : Logger = createLogger(filename);
 
 const router: Router = express.Router()
 
@@ -20,7 +27,7 @@ router.get('/reads', async (req : Request, res: Response): Promise<any> => {
         })
     } catch (errors: unknown) {
         if (errors instanceof Error) {
-            logging.winston.warn(`course : ${errors.message}`)
+            log.warning(`course : ${errors.message}`)
         }
         throw errors
     }
@@ -43,7 +50,7 @@ router.get('/read', async (req : Request, res: Response): Promise<any> => {
 
     } catch (errors: unknown) {
         if (errors instanceof Error) {
-            logging.winston.warn(`course : ${errors.message}`)
+            log.warning(`course : ${errors.message}`)
         }
         throw errors
     }
@@ -67,7 +74,7 @@ router.post('/create', async (req : Request, res: Response): Promise<any> => {
 
     } catch (errors: unknown) {
         if (errors instanceof Error) {
-            logging.winston.warn(`course : ${errors.message}`)
+            log.warning(`course : ${errors.message}`)
         }
         throw errors
     }
@@ -92,7 +99,7 @@ router.put('/update', async (req : Request, res: Response): Promise<any> => {
 
     } catch (errors: unknown) {
         if (errors instanceof Error) {
-            logging.winston.warn(`course : ${errors.message}`)
+            log.warning(`course : ${errors.message}`)
         }
         throw errors
     }
@@ -115,7 +122,7 @@ router.delete('/delete', async (req : Request, res: Response): Promise<any> => {
 
     } catch (errors: unknown) {
         if (errors instanceof Error) {
-            logging.winston.warn(`course : ${errors.message}`)
+            log.warning(`course : ${errors.message}`)
         }
         throw errors
     }

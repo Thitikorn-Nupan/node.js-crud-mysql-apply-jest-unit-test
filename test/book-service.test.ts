@@ -1,6 +1,6 @@
 import {afterEach, beforeEach, describe, expect, jest, test} from "@jest/globals";
-import {book} from "../entities/book";
-import {read, reads,create as createService , update as updateService, deleteById as deleteService} from "../services/book-service";
+import {book} from "../entities/book.ts";
+import {read, reads,create as createService , update as updateService, deleteById as deleteService} from "../services/book-service.ts";
 
 // Replace the real book model factory with a Jest mock.
 // This prevents the test from creating a Sequelize/MySQL connection. สิ่งนี้ช่วยป้องกันไม่ให้การทดสอบสร้างการเชื่อมต่อ Sequelize/MySQL
@@ -11,14 +11,12 @@ jest.mock("../entities/book", () => ({
 // error : TypeError: The "path" argument must be of type string. Received undefined
 // Mock the logger because logging.ts uses process.mainModule?.filename.
 // Jest can leave that value undefined, which causes path.basename() to fail.
-jest.mock("../log/logging", () => ({
+jest.mock("../log/logging-v2.ts", () => ({
     __esModule: true,
-    default: {
-        winston: {
-            debug: jest.fn(),
-            warn: jest.fn(),
-        },
-    },
+    createLogger: jest.fn(() => ({
+        debug: jest.fn(),
+        warning: jest.fn(),
+    })),
 }));
 
 describe("test book-service.ts", () => {

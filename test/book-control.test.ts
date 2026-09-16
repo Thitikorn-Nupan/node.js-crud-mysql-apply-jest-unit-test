@@ -20,8 +20,8 @@ jest.mock("../log/logging", () => ({
     },
 }));
 
-import router from "../controller/book-control";
-import {create, deleteById, read, reads, update,} from "../services/book-service";
+import router from "../controller/book-control.ts";
+import {create, deleteById, read, reads, update,} from "../services/book-service.ts";
 
 type RouteMethod = "get" | "post" | "put" | "delete";
 type RequestData = {

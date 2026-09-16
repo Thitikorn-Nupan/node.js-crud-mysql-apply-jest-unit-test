@@ -1,7 +1,11 @@
 import * as dotenv from 'dotenv';
-import * as path from 'path';
 import {Sequelize} from "sequelize";
-// import logging from "../log/logging";
+import * as path from 'path';
+import {createLogger} from "../log/logging-v2.ts";
+import {Logger} from "winston";
+
+const filename :string  = path.basename(__filename);
+const log : Logger = createLogger(filename);
 
 dotenv.config({path: path.resolve('env/.env'), debug: true});
 
@@ -20,16 +24,14 @@ export const dbConfig = () : Sequelize => {
 }
 
 /**
-new DBConfig()
-    .connect
+dbConfig()
     .authenticate()
     .then(() => {
-        logging.winston.info('Connection has been established successfully.');
+        log.info('Connection has been established successfully.');
     })
     .catch(err => {
-        logging.winston.debug('Unable to connect to the database:', err);
+        log.debug(`Unable to connect to the database: ${err}`);
         throw err
     });
- */
-
+*/
 

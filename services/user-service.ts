@@ -1,4 +1,4 @@
-import {User} from "../entities/user";
+import {User} from "../entities/user.ts";
 
 export class UserService {
     private readonly users: User[];
